@@ -6,7 +6,7 @@ import threading
 import time
 
 # Server Configuration
-HOST = 'SERVER_IP'  # Replace with server's public IP
+HOST = 'SERVER_IP'  # Replace With Server's Public IP
 PORT = 9999
 
 def receive_messages(client_socket):
@@ -40,13 +40,13 @@ def main():
 
     client_socket.setblocking(False)
 
-    # Start Thread For Recieving Messages
+    # Start Thread For Receiving Messages
     recv_thread = threading.Thread(target=receive_messages, args=(client_socket,))
     recv_thread.daemon = True
     recv_thread.start()
 
     # Capture Webcam Feed
-    cap = cv2.VideoCapture(0) # 0 = Default Camera
+    cap = cv2.VideoCapture(0)  # 0 = Default Camera
     if not cap.isOpened():
         print("Error: Could not open webcam.")
         client_socket.close()
@@ -61,6 +61,13 @@ def main():
 
             # Resize Frame
             frame = cv2.resize(frame, (640, 380))
+
+            # Display Frame Locally
+            cv2.imshow('Client - Webcam Feed', frame)
+
+            # Quit on 'q' Key Press
+            if cv2.waitKey(1) & 0xFF == ord('q'):
+                break
 
             # Serialize Frame: Compress to JPEG and Pickle
             _, img_encoded = cv2.imencode('.jpg', frame)
@@ -84,6 +91,7 @@ def main():
     finally:
         cap.release()
         client_socket.close()
+        cv2.destroyAllWindows() 
         print("Connection closed.")
 
 if __name__ == "__main__":
