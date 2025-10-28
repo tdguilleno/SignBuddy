@@ -1,10 +1,3 @@
-
----
-
-## 4. Training Data Capture – `src/capture.py`
-
-```python
-# src/capture.py
 import cv2
 import mediapipe as mp
 import numpy as np
