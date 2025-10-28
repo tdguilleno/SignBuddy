@@ -6,7 +6,7 @@ import threading
 import time
 
 # Server Configuration
-HOST = 'SERVER_IP'  # Replace With Server's Public IP
+HOST = '1.136.107.84'  # Replace With Server's Public IP
 PORT = 9999
 
 def receive_messages(client_socket):
